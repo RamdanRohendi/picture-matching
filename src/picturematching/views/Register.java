@@ -192,9 +192,11 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseClicked
-        SelectDifficulty viewDifficulty = new SelectDifficulty();
-        viewDifficulty.setLocation(this.getLocation());
-        viewDifficulty.setVisible(true);
+        Main.is_login = true;
+        
+        Home home = new Home();
+        home.setLocation(this.getLocation());
+        home.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnSimpanMouseClicked
 

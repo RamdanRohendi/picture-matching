@@ -21,8 +21,8 @@ public class StatGame extends javax.swing.JFrame {
         String tingkatKesulitan = Main.permainanController.getPengaturan().getKesulitan();
         
         if (tingkatKesulitan.equals("Normal")) {
-            txtScore.setVisible(false);
-            edtScore.setVisible(false);
+            txtScore.setForeground(new java.awt.Color(0, 0, 0));
+            edtScore.setForeground(new java.awt.Color(0, 0, 0));
         }
         
         if (status.equals("win")) {
@@ -30,6 +30,8 @@ public class StatGame extends javax.swing.JFrame {
         }
         
         if (status.equals("gameover")) {
+            txtScore.setForeground(new java.awt.Color(0, 0, 0));
+            edtScore.setForeground(new java.awt.Color(0, 0, 0));
             txtTimeSpent.setForeground(new java.awt.Color(0, 0, 0));
             edtTimeSpent.setForeground(new java.awt.Color(0, 0, 0));
             txtStat.setText("<html> <body> <center> GAME<br>OVER </center> </body> </html>");

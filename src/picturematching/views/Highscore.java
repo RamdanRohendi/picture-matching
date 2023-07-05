@@ -20,7 +20,6 @@ public class Highscore extends javax.swing.JFrame {
             btnLogin.setVisible(false);
         } else {
             btnProfile.setVisible(false);
-            btnLogout.setVisible(false);
         }
     }
 
@@ -36,7 +35,6 @@ public class Highscore extends javax.swing.JFrame {
         Head = new javax.swing.JPanel();
         btnProfile = new javax.swing.JLabel();
         btnLogin = new javax.swing.JLabel();
-        btnLogout = new javax.swing.JLabel();
         Body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -98,17 +96,12 @@ public class Highscore extends javax.swing.JFrame {
             }
         });
 
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/logout.png"))); // NOI18N
-        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
         javax.swing.GroupLayout HeadLayout = new javax.swing.GroupLayout(Head);
         Head.setLayout(HeadLayout);
         HeadLayout.setHorizontalGroup(
             HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeadLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnLogout)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(230, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProfile)
@@ -119,7 +112,6 @@ public class Highscore extends javax.swing.JFrame {
             .addGroup(HeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout)
                     .addComponent(btnLogin)
                     .addComponent(btnProfile))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -447,7 +439,6 @@ public class Highscore extends javax.swing.JFrame {
     private javax.swing.JPanel Head;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel btnLogin;
-    private javax.swing.JLabel btnLogout;
     private javax.swing.JLabel btnProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

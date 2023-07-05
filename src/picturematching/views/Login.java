@@ -181,9 +181,11 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        SelectDifficulty viewDifficulty = new SelectDifficulty();
-        viewDifficulty.setLocation(this.getLocation());
-        viewDifficulty.setVisible(true);
+        Main.is_login = true;
+        
+        Home home = new Home();
+        home.setLocation(this.getLocation());
+        home.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLoginMouseClicked
 

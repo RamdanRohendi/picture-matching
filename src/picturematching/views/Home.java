@@ -75,6 +75,11 @@ public class Home extends javax.swing.JFrame {
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/logout.png"))); // NOI18N
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout HeadLayout = new javax.swing.GroupLayout(Head);
         Head.setLayout(HeadLayout);
@@ -199,6 +204,15 @@ public class Home extends javax.swing.JFrame {
         highscore.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnHighscoreMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        Main.is_login = false;
+        
+        Home home = new Home();
+        home.setLocation(this.getLocation());
+        home.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLogoutMouseClicked
 
     /**
      * @param args the command line arguments
