@@ -4,6 +4,8 @@
  */
 package picturematching.views;
 
+import picturematching.Main;
+
 /**
  *
  * @author Ramdan Rohendi
@@ -16,6 +18,12 @@ public class StatGame extends javax.swing.JFrame {
     
     public StatGame(String status, int waktuSpent) {
         initComponents();
+        String tingkatKesulitan = Main.permainanController.getPengaturan().getKesulitan();
+        
+        if (tingkatKesulitan.equals("Normal")) {
+            txtScore.setVisible(false);
+            edtScore.setVisible(false);
+        }
         
         if (status.equals("win")) {
             txtStat.setText("<html> <body> <center> YOU<br>WIN </center> </body> </html>");
@@ -47,6 +55,8 @@ public class StatGame extends javax.swing.JFrame {
         goHome = new javax.swing.JLabel();
         txtTimeSpent = new javax.swing.JLabel();
         edtTimeSpent = new javax.swing.JLabel();
+        txtScore = new javax.swing.JLabel();
+        edtScore = new javax.swing.JLabel();
 
         setTitle("Picture Matching - Playing");
         setBackground(new java.awt.Color(0, 0, 0));
@@ -83,18 +93,32 @@ public class StatGame extends javax.swing.JFrame {
         edtTimeSpent.setForeground(new java.awt.Color(255, 255, 255));
         edtTimeSpent.setText("00:00");
 
+        txtScore.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        txtScore.setForeground(new java.awt.Color(255, 255, 255));
+        txtScore.setText("Score:");
+
+        edtScore.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        edtScore.setForeground(new java.awt.Color(255, 255, 255));
+        edtScore.setText("500");
+
         javax.swing.GroupLayout StatGameLayout = new javax.swing.GroupLayout(StatGame);
         StatGame.setLayout(StatGameLayout);
         StatGameLayout.setHorizontalGroup(
             StatGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(txtStat)
+            .addComponent(goHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(StatGameLayout.createSequentialGroup()
                 .addGap(101, 101, 101)
-                .addComponent(txtTimeSpent)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtTimeSpent)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(goHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(StatGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(StatGameLayout.createSequentialGroup()
+                        .addComponent(txtScore)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtScore))
+                    .addGroup(StatGameLayout.createSequentialGroup()
+                        .addComponent(txtTimeSpent)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtTimeSpent)))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         StatGameLayout.setVerticalGroup(
             StatGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +129,11 @@ public class StatGame extends javax.swing.JFrame {
                 .addGroup(StatGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTimeSpent)
                     .addComponent(edtTimeSpent))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(StatGameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtScore)
+                    .addComponent(edtScore))
+                .addGap(20, 20, 20)
                 .addComponent(goHome)
                 .addGap(124, 124, 124))
         );
@@ -177,8 +205,10 @@ public class StatGame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel StatGame;
+    private javax.swing.JLabel edtScore;
     private javax.swing.JLabel edtTimeSpent;
     private javax.swing.JLabel goHome;
+    private javax.swing.JLabel txtScore;
     private javax.swing.JLabel txtStat;
     private javax.swing.JLabel txtTimeSpent;
     // End of variables declaration//GEN-END:variables

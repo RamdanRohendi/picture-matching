@@ -4,6 +4,8 @@
  */
 package picturematching.views;
 
+import picturematching.Main;
+
 /**
  *
  * @author Ramdan Rohendi
@@ -12,6 +14,14 @@ public class Home extends javax.swing.JFrame {
 
     public Home() {
         initComponents();
+        
+        if (Main.is_login) {
+            btnProfile.setVisible(true);
+            btnLogin.setVisible(false);
+        } else {
+            btnProfile.setVisible(false);
+            btnLogout.setVisible(false);
+        }
     }
 
     /**
@@ -24,6 +34,10 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         Head = new javax.swing.JPanel();
+        btnProfile = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JLabel();
+        btnHighscore = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JLabel();
         Body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
@@ -35,15 +49,58 @@ public class Home extends javax.swing.JFrame {
 
         Head.setBackground(new java.awt.Color(102, 102, 102));
 
+        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/profile.png"))); // NOI18N
+        btnProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProfileMouseClicked(evt);
+            }
+        });
+
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/login.png"))); // NOI18N
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
+
+        btnHighscore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/ranking.png"))); // NOI18N
+        btnHighscore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHighscore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHighscoreMouseClicked(evt);
+            }
+        });
+
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/logout.png"))); // NOI18N
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout HeadLayout = new javax.swing.GroupLayout(Head);
         Head.setLayout(HeadLayout);
         HeadLayout.setHorizontalGroup(
             HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnLogout)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnHighscore)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnProfile)
+                .addContainerGap())
         );
         HeadLayout.setVerticalGroup(
             HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGroup(HeadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout)
+                    .addComponent(btnHighscore)
+                    .addComponent(btnLogin)
+                    .addComponent(btnProfile))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Body.setBackground(new java.awt.Color(204, 204, 204));
@@ -78,7 +135,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
                 .addComponent(btnStart)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         Foot.setBackground(new java.awt.Color(102, 102, 102));
@@ -122,6 +179,27 @@ public class Home extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnStartMouseClicked
 
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        Login login = new Login();
+        login.setLocation(this.getLocation());
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void btnProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProfileMouseClicked
+        Profile profile = new Profile();
+        profile.setLocation(this.getLocation());
+        profile.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnProfileMouseClicked
+
+    private void btnHighscoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHighscoreMouseClicked
+        Highscore highscore = new Highscore();
+        highscore.setLocation(this.getLocation());
+        highscore.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnHighscoreMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -162,6 +240,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Foot;
     private javax.swing.JPanel Head;
     private javax.swing.JLabel Title;
+    private javax.swing.JLabel btnHighscore;
+    private javax.swing.JLabel btnLogin;
+    private javax.swing.JLabel btnLogout;
+    private javax.swing.JLabel btnProfile;
     private javax.swing.JLabel btnStart;
     // End of variables declaration//GEN-END:variables
 }

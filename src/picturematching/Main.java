@@ -6,6 +6,7 @@ package picturematching;
 
 import picturematching.controllers.PermainanController;
 import picturematching.views.Home;
+import picturematching.models.User;
 
 /**
  *
@@ -13,6 +14,8 @@ import picturematching.views.Home;
  */
 public class Main {
     public static PermainanController permainanController;
+    public static boolean is_login;
+    public static User userlogin;
 
     /**
      * @param args the command line arguments
@@ -20,6 +23,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         permainanController = new PermainanController();
+        is_login = false;
         
         Home home = new Home();
         home.setVisible(true);
