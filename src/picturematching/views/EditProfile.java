@@ -95,11 +95,13 @@ public class EditProfile extends javax.swing.JFrame {
         jLabel12.setText("Nama Lengkap");
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField1.setText("Player One");
 
         jLabel13.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel13.setText("Tanggal Lahir");
 
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField2.setText("19 November 2002");
 
         jLabel1.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jLabel1.setText("Tentang Saya");
@@ -107,6 +109,7 @@ public class EditProfile extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         jTextArea1.setRows(5);
+        jTextArea1.setText("Tentang Saya........");
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout BodyLayout = new javax.swing.GroupLayout(Body);
