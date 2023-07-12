@@ -5,6 +5,7 @@
 package picturematching.views;
 
 import picturematching.Main;
+import picturematching.models.User;
 
 /**
  *
@@ -207,6 +208,7 @@ public class Home extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         Main.is_login = false;
+        Main.userlogin = new User();
         
         Home home = new Home();
         home.setLocation(this.getLocation());

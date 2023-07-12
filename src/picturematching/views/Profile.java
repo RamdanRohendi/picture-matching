@@ -4,7 +4,9 @@
  */
 package picturematching.views;
 
+import javax.swing.ImageIcon;
 import picturematching.Main;
+import picturematching.models.User;
 
 /**
  *
@@ -14,6 +16,18 @@ public class Profile extends javax.swing.JFrame {
 
     public Profile() {
         initComponents();
+        
+        String dirIconProfile = "/picturematching/assets/profile/"+Main.userlogin.getIcon_profile();
+        ImageIcon gbrIconProfile = new ImageIcon(getClass().getResource(dirIconProfile));
+        txtIcon.setIcon(gbrIconProfile);
+        txtNamaLengkap.setText(Main.userlogin.getNama_lengkap());
+        txtUsername.setText(Main.userlogin.getUsername());
+        txtTglLahir.setText(Main.userlogin.getTanggal_lahir() == null ? "~" : Main.userlogin.getTanggal_lahir().toString());
+        txtTentangSaya.setText(Main.userlogin.getTentang_saya());
+        
+        txtBestScore.setText(Main.userlogin.historyPlaying().getBest_score() + "");
+        txtJmlPlayNormal.setText(Main.userlogin.historyPlaying().getJml_play_normal() + "");
+        txtJmlPlayHard.setText(Main.userlogin.historyPlaying().getJml_play_hard() + "");
     }
 
     /**
@@ -32,20 +46,21 @@ public class Profile extends javax.swing.JFrame {
         Body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        pnlIdentitas = new javax.swing.JPanel();
+        txtIcon = new javax.swing.JLabel();
+        txtNamaLengkap = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JLabel();
+        txtTglLahir = new javax.swing.JLabel();
+        pnlTentang = new javax.swing.JPanel();
+        scrPaneTentangSaya = new javax.swing.JScrollPane();
+        txtTentangSaya = new javax.swing.JTextArea();
+        pnlHistory = new javax.swing.JPanel();
+        lblBestScore = new javax.swing.JLabel();
+        lblJmlPlayNormal = new javax.swing.JLabel();
+        lblJmlPlayHard = new javax.swing.JLabel();
+        txtBestScore = new javax.swing.JLabel();
+        txtJmlPlayNormal = new javax.swing.JLabel();
+        txtJmlPlayHard = new javax.swing.JLabel();
         Foot = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -123,121 +138,125 @@ public class Profile extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/profile/burunghantu.png"))); // NOI18N
+        txtIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/profile/burunghantu.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
-        jLabel2.setText("Player One");
+        txtNamaLengkap.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
+        txtNamaLengkap.setText("Player One");
 
-        jLabel3.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
-        jLabel3.setText("player1");
+        txtUsername.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
+        txtUsername.setText("player1");
 
-        jLabel4.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
-        jLabel4.setText("19 November 2002");
+        txtTglLahir.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
+        txtTglLahir.setText("19 November 2002");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlIdentitasLayout = new javax.swing.GroupLayout(pnlIdentitas);
+        pnlIdentitas.setLayout(pnlIdentitasLayout);
+        pnlIdentitasLayout.setHorizontalGroup(
+            pnlIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIdentitasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(txtIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                .addGroup(pnlIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlIdentitasLayout.createSequentialGroup()
+                        .addComponent(txtNamaLengkap)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(txtTglLahir))
+                    .addGroup(pnlIdentitasLayout.createSequentialGroup()
+                        .addComponent(txtUsername)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlIdentitasLayout.setVerticalGroup(
+            pnlIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlIdentitasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtIcon)
+                    .addGroup(pnlIdentitasLayout.createSequentialGroup()
+                        .addGroup(pnlIdentitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlIdentitasLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel4))
+                                .addComponent(txtNamaLengkap))
+                            .addComponent(txtTglLahir))
                         .addGap(3, 3, 3)
-                        .addComponent(jLabel3)))
+                        .addComponent(txtUsername)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Tentang Saya........");
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        txtTentangSaya.setEditable(false);
+        txtTentangSaya.setColumns(20);
+        txtTentangSaya.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        txtTentangSaya.setLineWrap(true);
+        txtTentangSaya.setRows(5);
+        txtTentangSaya.setText("Tentang saya...");
+        scrPaneTentangSaya.setViewportView(txtTentangSaya);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlTentangLayout = new javax.swing.GroupLayout(pnlTentang);
+        pnlTentang.setLayout(pnlTentangLayout);
+        pnlTentangLayout.setHorizontalGroup(
+            pnlTentangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTentangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(scrPaneTentangSaya)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pnlTentangLayout.setVerticalGroup(
+            pnlTentangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTentangLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                .addComponent(scrPaneTentangSaya, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jLabel6.setText("Best Score");
+        lblBestScore.setText("Best Score : ");
 
-        jLabel7.setText("Jumlah Permainan Normal");
+        lblJmlPlayNormal.setText("Jumlah Permainan Normal : ");
 
-        jLabel8.setText("Jumlah Permainan Hard");
+        lblJmlPlayHard.setText("Jumlah Permainan Hard : ");
 
-        jLabel9.setText(": 10000");
+        txtBestScore.setText("10000");
 
-        jLabel10.setText(": 15");
+        txtJmlPlayNormal.setText("15");
 
-        jLabel11.setText(": 20");
+        txtJmlPlayHard.setText("20");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlHistoryLayout = new javax.swing.GroupLayout(pnlHistory);
+        pnlHistory.setLayout(pnlHistoryLayout);
+        pnlHistoryLayout.setHorizontalGroup(
+            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addComponent(lblBestScore)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(txtBestScore))
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addComponent(lblJmlPlayNormal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(txtJmlPlayNormal))
+                    .addGroup(pnlHistoryLayout.createSequentialGroup()
+                        .addComponent(lblJmlPlayHard)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)))
+                        .addComponent(txtJmlPlayHard)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlHistoryLayout.setVerticalGroup(
+            pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistoryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9))
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBestScore)
+                    .addComponent(txtBestScore))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10))
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJmlPlayNormal)
+                    .addComponent(txtJmlPlayNormal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel11))
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJmlPlayHard)
+                    .addComponent(txtJmlPlayHard))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,10 +270,10 @@ public class Profile extends javax.swing.JFrame {
                     .addComponent(btnStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BodyLayout.createSequentialGroup()
                         .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlHistory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlIdentitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(pnlTentang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         BodyLayout.setVerticalGroup(
@@ -263,11 +282,11 @@ public class Profile extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(Title)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlIdentitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlTentang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnStart)
                 .addContainerGap())
@@ -337,6 +356,7 @@ public class Profile extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         Main.is_login = false;
+        Main.userlogin = new User();
         
         Home home = new Home();
         home.setLocation(this.getLocation());
@@ -388,20 +408,21 @@ public class Profile extends javax.swing.JFrame {
     private javax.swing.JLabel btnHighscore;
     private javax.swing.JLabel btnLogout;
     private javax.swing.JLabel btnStart;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblBestScore;
+    private javax.swing.JLabel lblJmlPlayHard;
+    private javax.swing.JLabel lblJmlPlayNormal;
+    private javax.swing.JPanel pnlHistory;
+    private javax.swing.JPanel pnlIdentitas;
+    private javax.swing.JPanel pnlTentang;
+    private javax.swing.JScrollPane scrPaneTentangSaya;
+    private javax.swing.JLabel txtBestScore;
+    private javax.swing.JLabel txtIcon;
+    private javax.swing.JLabel txtJmlPlayHard;
+    private javax.swing.JLabel txtJmlPlayNormal;
+    private javax.swing.JLabel txtNamaLengkap;
+    private javax.swing.JTextArea txtTentangSaya;
+    private javax.swing.JLabel txtTglLahir;
+    private javax.swing.JLabel txtUsername;
     // End of variables declaration//GEN-END:variables
 }

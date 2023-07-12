@@ -4,7 +4,9 @@
  */
 package picturematching.views;
 
+import javax.swing.JOptionPane;
 import picturematching.Main;
+import picturematching.controllers.UserController;
 
 /**
  *
@@ -12,8 +14,10 @@ import picturematching.Main;
  */
 public class Login extends javax.swing.JFrame {
     private int highscore = 0;
+    private UserController userController;
 
     public Login() {
+        userController = new UserController();
         initComponents();
     }
     
@@ -21,6 +25,22 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         
         this.highscore = highscore;
+    }
+    
+    private void actionLogin() {
+        String username = this.inputUsername.getText();
+        String password = this.inputPassword.getText();
+        
+        boolean check_login = userController.login(username, password);
+        
+        if (check_login) {
+            Home home = new Home();
+            home.setLocation(this.getLocation());
+            home.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Username atau Password Salah!", "Autentikasi Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -106,6 +126,11 @@ public class Login extends javax.swing.JFrame {
 
         inputPassword.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         inputPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        inputPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputPasswordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BodyLayout = new javax.swing.GroupLayout(Body);
         Body.setLayout(BodyLayout);
@@ -181,12 +206,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        Main.is_login = true;
-        
-        Home home = new Home();
-        home.setLocation(this.getLocation());
-        home.setVisible(true);
-        this.setVisible(false);
+        this.actionLogin();
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
@@ -202,6 +222,12 @@ public class Login extends javax.swing.JFrame {
         home.setLocation(this.getLocation());
         home.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void inputPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPasswordKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            this.actionLogin();
+        }
+    }//GEN-LAST:event_inputPasswordKeyPressed
 
     /**
      * @param args the command line arguments
