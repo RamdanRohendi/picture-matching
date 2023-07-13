@@ -25,9 +25,9 @@ public class Profile extends javax.swing.JFrame {
         txtTglLahir.setText(Main.userlogin.getTanggal_lahir() == null ? "~" : Main.userlogin.getTanggal_lahir().toString());
         txtTentangSaya.setText(Main.userlogin.getTentang_saya());
         
-        txtBestScore.setText(Main.userlogin.historyPlaying().getBest_score() + "");
-        txtJmlPlayNormal.setText(Main.userlogin.historyPlaying().getJml_play_normal() + "");
-        txtJmlPlayHard.setText(Main.userlogin.historyPlaying().getJml_play_hard() + "");
+        txtBestScore.setText(Main.userlogin.myHistory().getBest_score() + "");
+        txtJmlPlayNormal.setText(Main.userlogin.myHistory().getJml_play_normal() + "");
+        txtJmlPlayHard.setText(Main.userlogin.myHistory().getJml_play_hard() + "");
     }
 
     /**
@@ -183,6 +183,8 @@ public class Profile extends javax.swing.JFrame {
                         .addComponent(txtUsername)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        scrPaneTentangSaya.setBackground(new java.awt.Color(242, 242, 242));
 
         txtTentangSaya.setEditable(false);
         txtTentangSaya.setColumns(20);

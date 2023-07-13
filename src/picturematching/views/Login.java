@@ -5,7 +5,6 @@
 package picturematching.views;
 
 import javax.swing.JOptionPane;
-import picturematching.Main;
 import picturematching.controllers.UserController;
 
 /**

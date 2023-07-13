@@ -59,12 +59,12 @@ public class User {
         this.updated_at = updated_at;
     }
     
-    public HistoryPlaying historyPlaying() {
-        HistoryPlaying history = new HistoryPlaying();
+    public GameHistory myHistory() {
+        GameHistory history = new GameHistory();
         
         try {
             int is_available = 0;
-            String query = "SELECT * FROM history_playing WHERE user_id = '"+this.id+"';";
+            String query = "SELECT * FROM game_histories WHERE user_id = '"+this.id+"';";
             PreparedStatement statement = Koneksi.getConnection().prepareStatement(query);
             ResultSet rs = statement.executeQuery();
             
@@ -78,7 +78,7 @@ public class User {
                 Date history_created_at = rs.getTimestamp("created_at");
                 Date history_updated_at = rs.getTimestamp("updated_at");
                 
-                history = new HistoryPlaying(history_id, user_id, best_score, jml_play_normal, jml_play_hard, history_created_at, history_updated_at);
+                history = new GameHistory(history_id, user_id, best_score, jml_play_normal, jml_play_hard, history_created_at, history_updated_at);
             }
             
             if (is_available < 1) {
@@ -107,6 +107,10 @@ public class User {
         return icon_profile;
     }
 
+    public void setNama_lengkap(String nama_lengkap) {
+        this.nama_lengkap = nama_lengkap;
+    }
+    
     public String getNama_lengkap() {
         return nama_lengkap;
     }
@@ -115,10 +119,18 @@ public class User {
         return email;
     }
 
+    public void setTentang_saya(String tentang_saya) {
+        this.tentang_saya = tentang_saya;
+    }
+    
     public String getTentang_saya() {
         return tentang_saya;
     }
 
+    public void setTanggal_lahir(Date tanggal_lahir) {
+        this.tanggal_lahir = tanggal_lahir;
+    }
+    
     public Date getTanggal_lahir() {
         return tanggal_lahir;
     }

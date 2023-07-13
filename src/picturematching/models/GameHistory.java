@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author Ramdan Rohendi
  */
-public class HistoryPlaying {
+public class GameHistory {
     private int id;
     private int user_id;
     private int best_score;
@@ -19,20 +19,20 @@ public class HistoryPlaying {
     private Date created_at;
     private Date updated_at;
 
-    public HistoryPlaying() {
+    public GameHistory() {
     }
 
-    public HistoryPlaying(int user_id) {
+    public GameHistory(int user_id) {
         this.user_id = user_id;
     }
 
-    public HistoryPlaying(int best_score, int jml_play_normal, int jml_play_hard) {
+    public GameHistory(int best_score, int jml_play_normal, int jml_play_hard) {
         this.best_score = best_score;
         this.jml_play_normal = jml_play_normal;
         this.jml_play_hard = jml_play_hard;
     }
 
-    public HistoryPlaying(int id, int user_id, int best_score, int jml_play_normal, int jml_play_hard, Date created_at, Date updated_at) {
+    public GameHistory(int id, int user_id, int best_score, int jml_play_normal, int jml_play_hard, Date created_at, Date updated_at) {
         this.id = id;
         this.user_id = user_id;
         this.best_score = best_score;

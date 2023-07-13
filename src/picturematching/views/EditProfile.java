@@ -4,16 +4,43 @@
  */
 package picturematching.views;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import picturematching.Main;
+import picturematching.controllers.UserController;
 
 /**
  *
  * @author Ramdan Rohendi
  */
 public class EditProfile extends javax.swing.JFrame {
+    private UserController userController;
 
     public EditProfile() {
+        userController = new UserController();
         initComponents();
+        
+        inputNamaLengkap.setText(Main.userlogin.getNama_lengkap());
+        inputTanggalLahir.setText(Main.userlogin.getTanggal_lahir() == null ? "~" : Main.userlogin.getTanggal_lahir().toString());
+        inputTentangSaya.setText(Main.userlogin.getTentang_saya());
+    }
+    
+    private void actionUpdateProfile() throws ParseException {
+        int id = Main.userlogin.getId();
+        String nama_lengkap = this.inputNamaLengkap.getText();
+        String tanggal_lahir = this.inputTanggalLahir.getText();
+        String tentang_saya = this.inputTentangSaya.getText();
+        
+        boolean check_update = userController.update(id, nama_lengkap, tanggal_lahir, tentang_saya);
+
+        if (check_update) {
+            Profile profile = new Profile();
+            profile.setLocation(this.getLocation());
+            profile.setVisible(true);
+            this.setVisible(false);
+        }
     }
 
     /**
@@ -29,14 +56,14 @@ public class EditProfile extends javax.swing.JFrame {
         btnHighscore = new javax.swing.JLabel();
         Body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
-        btnStart = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        btnSimpan = new javax.swing.JLabel();
+        lblNamaLengkap = new javax.swing.JLabel();
+        inputNamaLengkap = new javax.swing.JTextField();
+        lblTanggalLahir = new javax.swing.JLabel();
+        inputTanggalLahir = new javax.swing.JTextField();
+        lblTentangSaya = new javax.swing.JLabel();
+        scrPaneTentangSaya = new javax.swing.JScrollPane();
+        inputTentangSaya = new javax.swing.JTextArea();
         Foot = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,36 +108,34 @@ public class EditProfile extends javax.swing.JFrame {
         Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Title.setText("Edit Profile");
 
-        btnStart.setBackground(new java.awt.Color(0, 0, 0));
-        btnStart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/btnsimpan.png"))); // NOI18N
-        btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnStart.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSimpan.setBackground(new java.awt.Color(0, 0, 0));
+        btnSimpan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/btnsimpan.png"))); // NOI18N
+        btnSimpan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStartMouseClicked(evt);
+                btnSimpanMouseClicked(evt);
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        jLabel12.setText("Nama Lengkap");
+        lblNamaLengkap.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        lblNamaLengkap.setText("Nama Lengkap");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField1.setText("Player One");
+        inputNamaLengkap.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        jLabel13.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        jLabel13.setText("Tanggal Lahir");
+        lblTanggalLahir.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        lblTanggalLahir.setText("Tanggal Lahir");
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField2.setText("19 November 2002");
+        inputTanggalLahir.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        jLabel1.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        jLabel1.setText("Tentang Saya");
+        lblTentangSaya.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        lblTentangSaya.setText("Tentang Saya");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Tentang Saya........");
-        jScrollPane1.setViewportView(jTextArea1);
+        inputTentangSaya.setColumns(20);
+        inputTentangSaya.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        inputTentangSaya.setLineWrap(true);
+        inputTentangSaya.setRows(5);
+        scrPaneTentangSaya.setViewportView(inputTentangSaya);
 
         javax.swing.GroupLayout BodyLayout = new javax.swing.GroupLayout(Body);
         Body.setLayout(BodyLayout);
@@ -120,19 +145,19 @@ public class EditProfile extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BodyLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblTentangSaya)
                         .addGap(190, 190, 190))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrPaneTentangSaya, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputNamaLengkap)
+                    .addComponent(inputTanggalLahir, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BodyLayout.createSequentialGroup()
                         .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(lblNamaLengkap, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTanggalLahir, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
-            .addComponent(btnStart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSimpan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         BodyLayout.setVerticalGroup(
             BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,19 +165,19 @@ public class EditProfile extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE)
                 .addComponent(Title)
                 .addGap(28, 28, 28)
-                .addComponent(jLabel12)
+                .addComponent(lblNamaLengkap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputNamaLengkap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
+                .addComponent(lblTanggalLahir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inputTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addComponent(lblTentangSaya)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrPaneTentangSaya, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(btnStart)
+                .addComponent(btnSimpan)
                 .addGap(14, 14, 14))
         );
 
@@ -190,15 +215,15 @@ public class EditProfile extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseClicked
-        SelectDifficulty viewDifficulty = new SelectDifficulty();
-        viewDifficulty.setLocation(this.getLocation());
-        viewDifficulty.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnStartMouseClicked
+    private void btnSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseClicked
+        try {
+            this.actionUpdateProfile();
+        } catch (ParseException ex) {
+            Logger.getLogger(EditProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSimpanMouseClicked
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
         Profile profile = new Profile();
         profile.setLocation(this.getLocation());
         profile.setVisible(true);
@@ -255,13 +280,13 @@ public class EditProfile extends javax.swing.JFrame {
     private javax.swing.JPanel Head;
     private javax.swing.JLabel Title;
     private javax.swing.JLabel btnHighscore;
-    private javax.swing.JLabel btnStart;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel btnSimpan;
+    private javax.swing.JTextField inputNamaLengkap;
+    private javax.swing.JTextField inputTanggalLahir;
+    private javax.swing.JTextArea inputTentangSaya;
+    private javax.swing.JLabel lblNamaLengkap;
+    private javax.swing.JLabel lblTanggalLahir;
+    private javax.swing.JLabel lblTentangSaya;
+    private javax.swing.JScrollPane scrPaneTentangSaya;
     // End of variables declaration//GEN-END:variables
 }

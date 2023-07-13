@@ -4,7 +4,8 @@
  */
 package picturematching.views;
 
-import picturematching.Main;
+import javax.swing.JOptionPane;
+import picturematching.controllers.UserController;
 
 /**
  *
@@ -12,8 +13,10 @@ import picturematching.Main;
  */
 public class Register extends javax.swing.JFrame {
     private int highscore = 0;
+    private UserController userController;
 
     public Register() {
+        userController = new UserController();
         initComponents();
     }
     
@@ -21,6 +24,26 @@ public class Register extends javax.swing.JFrame {
         initComponents();
         
         this.highscore = highscore;
+    }
+    
+    private void actionRegister() {
+        String email = this.inputEmail.getText();
+        String username = this.inputUsername.getText();
+        String password = this.inputPassword.getText();
+        String confirmPassword = this.inputConfirmPassword.getText();
+        
+        if (password.equals(confirmPassword)) {
+            boolean check_register = userController.register(email, username, password);
+            
+            if (check_register) {
+                Home home = new Home();
+                home.setLocation(this.getLocation());
+                home.setVisible(true);
+                this.setVisible(false);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Password tidak sama.", "Autentikasi Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -43,6 +66,8 @@ public class Register extends javax.swing.JFrame {
         inputPassword = new javax.swing.JPasswordField();
         txtConfirmPassword = new javax.swing.JLabel();
         inputConfirmPassword = new javax.swing.JPasswordField();
+        inputEmail = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JLabel();
         Foot = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -113,6 +138,18 @@ public class Register extends javax.swing.JFrame {
         txtConfirmPassword.setText("Confirm Password");
 
         inputConfirmPassword.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        inputConfirmPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputConfirmPasswordKeyPressed(evt);
+            }
+        });
+
+        inputEmail.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        inputEmail.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        inputEmail.setToolTipText("");
+
+        txtEmail.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
+        txtEmail.setText("Email");
 
         javax.swing.GroupLayout BodyLayout = new javax.swing.GroupLayout(Body);
         Body.setLayout(BodyLayout);
@@ -123,24 +160,35 @@ public class Register extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BodyLayout.createSequentialGroup()
+                        .addComponent(txtEmail)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(BodyLayout.createSequentialGroup()
                         .addComponent(txtUsername)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(BodyLayout.createSequentialGroup()
-                        .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputPassword)
-                            .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputUsername)
-                            .addComponent(txtConfirmPassword)
-                            .addComponent(txtPassword)
-                            .addComponent(inputConfirmPassword))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BodyLayout.createSequentialGroup()
+                        .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(inputEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputUsername, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputConfirmPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BodyLayout.createSequentialGroup()
+                                .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(20, 20, 20))))
         );
         BodyLayout.setVerticalGroup(
             BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BodyLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(25, 25, 25)
                 .addComponent(Title)
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
+                .addComponent(txtEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(inputEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(txtUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,11 +198,11 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(txtConfirmPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(inputConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(btnSimpan)
-                .addGap(27, 27, 27))
+                .addGap(10, 10, 10))
         );
 
         Foot.setBackground(new java.awt.Color(102, 102, 102));
@@ -192,12 +240,7 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseClicked
-        Main.is_login = true;
-        
-        Home home = new Home();
-        home.setLocation(this.getLocation());
-        home.setVisible(true);
-        this.setVisible(false);
+        this.actionRegister();
     }//GEN-LAST:event_btnSimpanMouseClicked
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
@@ -213,6 +256,12 @@ public class Register extends javax.swing.JFrame {
         login.setLocation(this.getLocation());
         login.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void inputConfirmPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputConfirmPasswordKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            this.actionRegister();
+        }
+    }//GEN-LAST:event_inputConfirmPasswordKeyPressed
 
     /**
      * @param args the command line arguments
@@ -260,9 +309,11 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel btnLogin;
     private javax.swing.JLabel btnSimpan;
     private javax.swing.JPasswordField inputConfirmPassword;
+    private javax.swing.JTextField inputEmail;
     private javax.swing.JPasswordField inputPassword;
     private javax.swing.JTextField inputUsername;
     private javax.swing.JLabel txtConfirmPassword;
+    private javax.swing.JLabel txtEmail;
     private javax.swing.JLabel txtPassword;
     private javax.swing.JLabel txtUsername;
     // End of variables declaration//GEN-END:variables
