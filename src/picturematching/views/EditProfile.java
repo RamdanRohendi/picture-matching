@@ -23,7 +23,7 @@ public class EditProfile extends javax.swing.JFrame {
         initComponents();
         
         inputNamaLengkap.setText(Main.userlogin.getNama_lengkap());
-        inputTanggalLahir.setText(Main.userlogin.getTanggal_lahir() == null ? "~" : Main.userlogin.getTanggal_lahir().toString());
+        inputTanggalLahir.setText(Main.userlogin.getStringTanggal_lahir());
         inputTentangSaya.setText(Main.userlogin.getTentang_saya());
     }
     

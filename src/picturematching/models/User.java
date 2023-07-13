@@ -7,7 +7,10 @@ package picturematching.models;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import picturematching.database.Koneksi;
 
@@ -133,6 +136,42 @@ public class User {
     
     public Date getTanggal_lahir() {
         return tanggal_lahir;
+    }
+    
+    public String getStringTanggal_lahir() {
+        String data = "";
+        
+        if (this.tanggal_lahir != null) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            data = dateFormat.format(this.tanggal_lahir);
+        }
+        
+        return data;
+    }
+    
+    public String getStringFormattedTanggal_lahir() {
+        String data = "";
+        HashMap<String, String> bulan = new HashMap<>();
+        bulan.put("01", "Januari");
+        bulan.put("02", "Februari");
+        bulan.put("03", "Maret");
+        bulan.put("04", "April");
+        bulan.put("05", "Mei");
+        bulan.put("06", "Juni");
+        bulan.put("07", "Juli");
+        bulan.put("08", "Agustus");
+        bulan.put("09", "September");
+        bulan.put("10", "Oktober");
+        bulan.put("11", "November");
+        bulan.put("12", "Desember");
+        
+        if (this.tanggal_lahir != null) {
+            data = this.getStringTanggal_lahir();
+            String[] dataPecah = data.split("-");
+            data = dataPecah[2] + " " + bulan.get(dataPecah[1]) + " " + dataPecah[0];
+        }
+        
+        return data;
     }
 
     public Date getCreated_at() {

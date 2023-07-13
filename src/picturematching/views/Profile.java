@@ -5,7 +5,9 @@
 package picturematching.views;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import picturematching.Main;
+import picturematching.controllers.UserController;
 import picturematching.models.User;
 
 /**
@@ -13,8 +15,10 @@ import picturematching.models.User;
  * @author Ramdan Rohendi
  */
 public class Profile extends javax.swing.JFrame {
+    private UserController userController;
 
     public Profile() {
+        userController = new UserController();
         initComponents();
         
         String dirIconProfile = "/picturematching/assets/profile/"+Main.userlogin.getIcon_profile();
@@ -22,7 +26,7 @@ public class Profile extends javax.swing.JFrame {
         txtIcon.setIcon(gbrIconProfile);
         txtNamaLengkap.setText(Main.userlogin.getNama_lengkap());
         txtUsername.setText(Main.userlogin.getUsername());
-        txtTglLahir.setText(Main.userlogin.getTanggal_lahir() == null ? "~" : Main.userlogin.getTanggal_lahir().toString());
+        txtTglLahir.setText(Main.userlogin.getStringFormattedTanggal_lahir());
         txtTentangSaya.setText(Main.userlogin.getTentang_saya());
         
         txtBestScore.setText(Main.userlogin.myHistory().getBest_score() + "");
@@ -42,7 +46,7 @@ public class Profile extends javax.swing.JFrame {
         Head = new javax.swing.JPanel();
         btnHighscore = new javax.swing.JLabel();
         btnLogout = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        btnEditProfile = new javax.swing.JLabel();
         Body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         btnStart = new javax.swing.JLabel();
@@ -61,7 +65,9 @@ public class Profile extends javax.swing.JFrame {
         txtBestScore = new javax.swing.JLabel();
         txtJmlPlayNormal = new javax.swing.JLabel();
         txtJmlPlayHard = new javax.swing.JLabel();
+        btnClearHistory = new javax.swing.JLabel();
         Foot = new javax.swing.JPanel();
+        btnDeleteAkun = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Picture Matching - Profile");
@@ -90,11 +96,11 @@ public class Profile extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/edit.png"))); // NOI18N
-        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/edit.png"))); // NOI18N
+        btnEditProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
+                btnEditProfileMouseClicked(evt);
             }
         });
 
@@ -108,7 +114,7 @@ public class Profile extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHighscore)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12)
+                .addComponent(btnEditProfile)
                 .addContainerGap())
         );
         HeadLayout.setVerticalGroup(
@@ -116,7 +122,7 @@ public class Profile extends javax.swing.JFrame {
             .addGroup(HeadLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(HeadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
+                    .addComponent(btnEditProfile)
                     .addComponent(btnLogout)
                     .addComponent(btnHighscore))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,6 +229,14 @@ public class Profile extends javax.swing.JFrame {
 
         txtJmlPlayHard.setText("20");
 
+        btnClearHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/clearhistory.png"))); // NOI18N
+        btnClearHistory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClearHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClearHistoryMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlHistoryLayout = new javax.swing.GroupLayout(pnlHistory);
         pnlHistory.setLayout(pnlHistoryLayout);
         pnlHistoryLayout.setHorizontalGroup(
@@ -233,16 +247,21 @@ public class Profile extends javax.swing.JFrame {
                     .addGroup(pnlHistoryLayout.createSequentialGroup()
                         .addComponent(lblBestScore)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBestScore))
+                        .addComponent(txtBestScore)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClearHistory))
                     .addGroup(pnlHistoryLayout.createSequentialGroup()
-                        .addComponent(lblJmlPlayNormal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtJmlPlayNormal))
-                    .addGroup(pnlHistoryLayout.createSequentialGroup()
-                        .addComponent(lblJmlPlayHard)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtJmlPlayHard)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlHistoryLayout.createSequentialGroup()
+                                .addComponent(lblJmlPlayNormal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtJmlPlayNormal))
+                            .addGroup(pnlHistoryLayout.createSequentialGroup()
+                                .addComponent(lblJmlPlayHard)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtJmlPlayHard)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlHistoryLayout.setVerticalGroup(
             pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,12 +269,13 @@ public class Profile extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBestScore)
-                    .addComponent(txtBestScore))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblJmlPlayNormal)
-                    .addComponent(txtJmlPlayNormal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txtBestScore)
+                    .addComponent(btnClearHistory))
+                .addGap(0, 0, 0)
+                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtJmlPlayNormal)
+                    .addComponent(lblJmlPlayNormal, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(10, 10, 10)
                 .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblJmlPlayHard)
                     .addComponent(txtJmlPlayHard))
@@ -281,7 +301,7 @@ public class Profile extends javax.swing.JFrame {
         BodyLayout.setVerticalGroup(
             BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BodyLayout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(Title)
                 .addGap(18, 18, 18)
                 .addComponent(pnlIdentitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,15 +316,29 @@ public class Profile extends javax.swing.JFrame {
 
         Foot.setBackground(new java.awt.Color(102, 102, 102));
 
+        btnDeleteAkun.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picturematching/assets/clearakun.png"))); // NOI18N
+        btnDeleteAkun.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteAkun.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDeleteAkunMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout FootLayout = new javax.swing.GroupLayout(Foot);
         Foot.setLayout(FootLayout);
         FootLayout.setHorizontalGroup(
             FootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FootLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDeleteAkun)
+                .addContainerGap())
         );
         FootLayout.setVerticalGroup(
             FootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
+            .addGroup(FootLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDeleteAkun)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,12 +383,12 @@ public class Profile extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnHighscoreMouseClicked
 
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+    private void btnEditProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditProfileMouseClicked
         EditProfile editProfile = new EditProfile();
         editProfile.setLocation(this.getLocation());
         editProfile.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jLabel12MouseClicked
+    }//GEN-LAST:event_btnEditProfileMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
         Main.is_login = false;
@@ -365,6 +399,36 @@ public class Profile extends javax.swing.JFrame {
         home.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void btnDeleteAkunMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteAkunMouseClicked
+        int pilihan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus akun ini?", "Konfirmasi Aksi", JOptionPane.YES_NO_OPTION);
+        
+        if (pilihan > 0) {
+            boolean check_delete = userController.destroy(Main.userlogin.getId());
+
+            if (check_delete) {
+                Home home = new Home();
+                home.setLocation(this.getLocation());
+                home.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_btnDeleteAkunMouseClicked
+
+    private void btnClearHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearHistoryMouseClicked
+        int pilihan = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus history permainan anda?", "Konfirmasi Aksi", JOptionPane.YES_NO_OPTION);
+        
+        if (pilihan > 0) {
+            boolean check_clear = userController.clearHistory(Main.userlogin.getId());
+
+            if (check_clear) {
+                Profile profile = new Profile();
+                profile.setLocation(this.getLocation());
+                profile.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_btnClearHistoryMouseClicked
 
     /**
      * @param args the command line arguments
@@ -407,10 +471,12 @@ public class Profile extends javax.swing.JFrame {
     private javax.swing.JPanel Foot;
     private javax.swing.JPanel Head;
     private javax.swing.JLabel Title;
+    private javax.swing.JLabel btnClearHistory;
+    private javax.swing.JLabel btnDeleteAkun;
+    private javax.swing.JLabel btnEditProfile;
     private javax.swing.JLabel btnHighscore;
     private javax.swing.JLabel btnLogout;
     private javax.swing.JLabel btnStart;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel lblBestScore;
     private javax.swing.JLabel lblJmlPlayHard;
     private javax.swing.JLabel lblJmlPlayNormal;

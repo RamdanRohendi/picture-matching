@@ -136,7 +136,7 @@ public class UserController {
             statement.setString(2, inputUsername);
             statement.setString(3, BCrypt.hashpw(inputPassword, BCrypt.gensalt()));
             statusResponse = statement.executeUpdate();
-            ResultSet rs = statement.executeQuery();
+            ResultSet rs = statement.getGeneratedKeys();
             statement.close();
             
             if (statusResponse > 0) {
@@ -147,14 +147,28 @@ public class UserController {
                     if (user.getUsername() == null) {
                         JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pengambilan data.", "Database Error", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        status = true;
-                        Main.is_login = true;
-                        Main.userlogin = user;
-                        System.out.println("Register Berhasil");
+                        int statusResponseHistory;
+                        String queryHistory = "INSERT INTO game_histories (user_id) VALUES (?)";
+                        PreparedStatement statementHistory = Koneksi.getConnection().prepareStatement(queryHistory, Statement.RETURN_GENERATED_KEYS);
+                        statementHistory.setInt(1, user.getId());
+                        statusResponseHistory = statementHistory.executeUpdate();
+                        ResultSet rsHistory = statement.executeQuery();
+                        statementHistory.close();
+                        
+                        if (statusResponseHistory > 0) {
+                            status = true;
+                            Main.is_login = true;
+                            Main.userlogin = user;
+                            System.out.println("Register Berhasil");
+                        } else {
+                            this.destroy(user.getId());
+                            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pembuatan data History. Mohon registrasi ulang.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 }
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Cobalah dengan email atau username yang berbeda.", "Autentikasi Error", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -166,12 +180,8 @@ public class UserController {
         
         try {
             int statusResponse;
-            String query = "UPDATE users SET nama_lengkap = '?', tanggal_lahir = '?', tentang_saya = '?' WHERE id = ?";
+            String query = "UPDATE users SET nama_lengkap = '"+inputNamaLengkap+"', tanggal_lahir = '"+inputTanggalLahir+"', tentang_saya = '"+inputTentangSaya+"' WHERE id = " + id;
             PreparedStatement statement = Koneksi.getConnection().prepareStatement(query);
-            statement.setString(1, inputNamaLengkap);
-            statement.setString(2, inputTanggalLahir);
-            statement.setString(3, inputTentangSaya);
-            statement.setInt(4, id);
             statusResponse = statement.executeUpdate();
             statement.close();
             
@@ -187,7 +197,71 @@ public class UserController {
                 System.out.println("Update Profile Berhasil");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pemrosesan data.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pemrosesan data. Pastikan penulisan format Tanggal Lahir sesuai (yyyy-MM-dd)", "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return status;
+    }
+    
+    public boolean clearHistory(int user_id) {
+        boolean status = false;
+        
+        try {
+            int statusResponse;
+            String query = "UPDATE game_histories SET best_score = 0, jml_play_normal = 0, jml_play_hard = 0 WHERE user_id = " + user_id;
+            PreparedStatement statement = Koneksi.getConnection().prepareStatement(query);
+            statusResponse = statement.executeUpdate();
+            statement.close();
+            
+            if (statusResponse > 0) {
+                status = true;
+                System.out.println("Clear History Berhasil");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pemrosesan data", "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return status;
+    }
+    
+    public boolean destroyHistory(int user_id) {
+        boolean status = false;
+        
+        try {
+            int statusResponse;
+            String query = "DELETE FROM game_histories WHERE user_id = " + user_id;
+            PreparedStatement statement = Koneksi.getConnection().prepareStatement(query);
+            statusResponse = statement.executeUpdate();
+            statement.close();
+            
+            if (statusResponse > 0) {
+                System.out.println("Hapus History Bermain Berhasil");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pemrosesan data", "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return status;
+    }
+    
+    public boolean destroy(int id) {
+        boolean status = false;
+        
+        try {
+            int statusResponse;
+            String query = "DELETE FROM users WHERE id = " + id;
+            PreparedStatement statement = Koneksi.getConnection().prepareStatement(query);
+            statusResponse = statement.executeUpdate();
+            statement.close();
+            
+            if (statusResponse > 0) {
+                status = true;
+                Main.is_login = false;
+                Main.userlogin = new User();
+                System.out.println("Hapus Akun Berhasil");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat pemrosesan data", "Database Error", JOptionPane.ERROR_MESSAGE);
         }
         
         return status;
